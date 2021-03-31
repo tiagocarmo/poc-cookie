@@ -5,6 +5,14 @@ import getConfig from 'next/config';
 
 const { serverRuntimeConfig } = getConfig();
 
+const maxAge = () => {
+  const sec = 60;
+  const min = 60;
+  const hours = 24;
+  const days = 30;
+  return sec * min * hours * days;
+}
+
 export default (req, res) => {
   res.setHeader('Set-Cookie',
     cookie.serialize(
@@ -13,7 +21,7 @@ export default (req, res) => {
       {
         httpOnly: true,
         secure: serverRuntimeConfig.SERVER_ENV !== 'development',
-        maxAge: 60 * 60 * 24 * 30,
+        maxAge: maxAge(),
         sameSite: 'strict',
         path: '/'
       }

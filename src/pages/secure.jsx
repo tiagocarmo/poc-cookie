@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 
 import { verifyLogin } from '../utils/login';
 
@@ -9,42 +10,30 @@ const FrontSecure = ({ logged = false, consumer = '' }) => {
   const [isLogged, setLogged] = useState(logged);
   const [consumerId, setConsumerId] = useState(consumer);
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
     const user = event.target.pocUz.value;
     const password = event.target.pocPz.value;
     if (verifyLogin(user, password)) {
       const consumerId = uuidv4();
-      fetch("/api/login", {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ 'customCookieTokenName': consumerId })
-      })
-      .then(function(response) {
+      try {
+        const response = await axios.post('/api/login', { 'customCookieTokenName': consumerId });
         if(response.status === 200) {
           setLogged(true);
           setConsumerId(consumerId);
         }
-      });
+      } catch(e) {
+        setLogged(false);
+        setConsumerId('');
+        console.log(e);
+      }
     }
   }
 
-  const handleLogout = () => {
-    fetch("/api/logout", {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({})
-    })
-    .then(function(response) {
-      if(response.status === 200) {
-        setLogged(false);
-        setConsumerId('');
-      }
-    });
+  const handleLogout = async () => {
+    await axios.post('/api/logout', {});
+    setLogged(false);
+    setConsumerId('');
   }
 
   return (
