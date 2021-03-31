@@ -1,0 +1,36 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  display: block;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  outline: none;
+  border: none;
+  padding: 8px 16px;
+  background-color: #dadada;
+}
+
+button {
+  display: block;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  outline: none;
+  border: 1px solid gray;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.container-limit {
+  width: 100%;
+  max-width: 1440px;
+  margin: auto;
+  text-align: center;
+}
+
+.container {
+  padding: 24px;
+  text-align: left;
+}
