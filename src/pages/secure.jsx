@@ -42,6 +42,7 @@ const FrontSecure = ({ logged = false, consumer = '' }) => {
     .then(function(response) {
       if(response.status === 200) {
         setLogged(false);
+        setConsumerId('');
       }
     });
   }

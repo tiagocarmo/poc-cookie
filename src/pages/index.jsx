@@ -27,6 +27,7 @@ const Front = ({ logged = false, consumer = '' }) => {
   const handleLogout = () => {
     cookie.remove('customCookieTokenName');
     setLogged(false);
+    setConsumerId('');
   }
 
   return (
